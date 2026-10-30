@@ -787,7 +787,7 @@ function bindPage(h){
 }
 
 /* ---------------- WebGL particle field ---------------- */
-function initGL(){ try{
+function initGL(){ if(window._fx) return; try{
   if(!window.THREE) throw new Error("3D library missing");
   const t=document.createElement("canvas"); if(!(t.getContext("webgl")||t.getContext("experimental-webgl"))) throw new Error("WebGL unavailable");
   const N = innerWidth<700 ? 3200 : 6000;
@@ -855,16 +855,90 @@ function initGL(){ try{
     requestAnimationFrame(frame);
   }
   requestAnimationFrame(frame);
-  }catch(err){ document.documentElement.classList.add("no-gl"); console.warn("3D background off:",err.message); }
+  window._fx="webgl";
+  }catch(err){ console.warn("WebGL off, using 2D canvas:",err.message); start2D(); }
+}
+/* ---------------- 3D particle field without WebGL (Canvas 2D) ----------------
+   Runs automatically when a browser can't use WebGL, so every visitor sees the 3D effect. */
+function start2D(){
+  if(window._fx) return; window._fx="2d";
+  document.documentElement.classList.remove("no-gl");
+  const old=document.getElementById("gl"), cv=document.createElement("canvas");
+  cv.id="gl"; cv.setAttribute("aria-hidden","true"); old.replaceWith(cv);
+  const ctx=cv.getContext("2d"); if(!ctx){document.documentElement.classList.add("no-gl");return;}
+  const N = innerWidth<700 ? 1600 : 3000, TAU=Math.PI*2, R=Math.random;
+  const pos=new Float32Array(N*3), tgt=new Float32Array(N*3), col=new Uint8Array(N);
+  for(let i=0;i<N;i++){pos[i*3]=(R()-.5)*20;pos[i*3+1]=(R()-.5)*20;pos[i*3+2]=(R()-.5)*20;col[i]=R()<.12?1:(R()<.5?0:2);}
+  const COLORS=["#5fd3c2","#f2a541","#e8efe9"];
+  const shapes={
+    origin:i=>{const k=i+.5,phi=Math.acos(1-2*k/N),th=Math.PI*(1+Math.sqrt(5))*k;const r=2.5+(i%7===0?R()*.6:0);return[r*Math.cos(th)*Math.sin(phi),r*Math.sin(th)*Math.sin(phi),r*Math.cos(phi)]},
+    helix:i=>{const t=i/N,a=t*TAU*6,s=i%2?Math.PI:0,y=(t-.5)*8;if(i%9===0){const u=R();return[Math.cos(a)*1.4*(1-2*u),y,Math.sin(a)*1.4*(1-2*u)]}return[Math.cos(a+s)*1.4+(R()-.5)*.12,y,Math.sin(a+s)*1.4+(R()-.5)*.12]},
+    pair:i=>{if(i%2===0){const u=R()*TAU,v=Math.acos(2*R()-1);return[-2.3+1.6*Math.sin(v)*Math.cos(u),1.6*Math.sin(v)*Math.sin(u),1.6*Math.cos(v)]}const u=R()*TAU,v=R()*TAU;return[2.3+(1.3+.35*Math.cos(v))*Math.cos(u),(1.3+.35*Math.cos(v))*Math.sin(u),.35*Math.sin(v)]},
+    bubble:i=>{if(i<N*.72){const u=R()*TAU,v=Math.acos(2*R()-1),r=2.8;return[r*Math.sin(v)*Math.cos(u),r*Math.sin(v)*Math.sin(u),r*Math.cos(v)]}const c=[[0,0,0],[1,.6,.3],[-.9,-.4,.5],[.3,-1,-.6],[-.5,.9,-.4]][i%5];const u=R()*TAU,v=Math.acos(2*R()-1),r=.32;return[c[0]+r*Math.sin(v)*Math.cos(u),c[1]+r*Math.sin(v)*Math.sin(u),c[2]+r*Math.cos(v)]},
+    breath:i=>{const u=R()*TAU,v=R()*TAU,Rr=2.4,r=.45+R()*.08;return[(Rr+r*Math.cos(v))*Math.cos(u),(Rr+r*Math.cos(v))*Math.sin(u),r*Math.sin(v)]},
+    lattice:i=>{const n=Math.round(Math.cbrt(N)),x=i%n,y=Math.floor(i/n)%n,z=Math.floor(i/n/n)%n,s=4.2/n;return[(x-n/2)*s,(y-n/2)*s,(z-n/2)*s]},
+    constellation:i=>{const hubs=[[-2.6,1.2,0],[2.4,1.4,-.5],[0,-1.6,.6],[-1.2,-.4,-1.8],[1.4,-.2,1.6],[0,2,1.2]];const h=hubs[i%6];const d=Math.pow(R(),2.2)*1.3,u=R()*TAU,v=Math.acos(2*R()-1);return[h[0]+d*Math.sin(v)*Math.cos(u),h[1]+d*Math.sin(v)*Math.sin(u),h[2]+d*Math.cos(v)]},
+    wave:i=>{const n=Math.round(Math.sqrt(N)),x=(i%n)/n-.5,z=Math.floor(i/n)/n-.5;return[x*12,-1.4,z*12]}
+  };
+  let sceneName="origin";
+  window.setScene=name=>{sceneName=name;const f=shapes[name]||shapes.origin;for(let i=0;i<N;i++){const p=f(i);tgt[i*3]=p[0];tgt[i*3+1]=p[1];tgt[i*3+2]=p[2];} if(reduce)pos.set(tgt);};
+  window.setScene(sceneOf[current]||"origin");
+  // background dust
+  const D=260, dust=new Float32Array(D*3); for(let i=0;i<D*3;i++)dust[i]=(R()-.5)*30;
+  let W=0,H=0,dpr=1,F=1,offX=0,scl=1;
+  function size(){dpr=Math.min(devicePixelRatio||1,1.5);W=innerWidth;H=innerHeight;cv.width=W*dpr;cv.height=H*dpr;cv.style.width=W+"px";cv.style.height=H+"px";
+    F=(H/2)/Math.tan(27.5*Math.PI/180); offX=W>980?2.6:0; scl=W<640?.72:1;}
+  addEventListener("resize",size); size();
+  let mx=0,my=0,sy=0,ry=0,rx=0,camX=0,camY=0,breathScale=1,t0=performance.now();
+  addEventListener("pointermove",e=>{mx=e.clientX/innerWidth-.5;my=e.clientY/innerHeight-.5});
+  addEventListener("scroll",()=>{sy=scrollY},{passive:true});
+  const buckets=[[],[],[]];
+  function frame(now){
+    const t=(now-t0)/1000, rs=reduce?0:1;
+    for(let i=0;i<N*3;i++)pos[i]+=(tgt[i]-pos[i])*.045;
+    if(sceneName==="wave"&&rs){for(let i=0;i<N;i++){const x=pos[i*3],z=pos[i*3+2];tgt[i*3+1]=-1.4+Math.sin(x*.8+t*1.4)*.35+Math.cos(z*.7+t)*.35;}}
+    ry+=.0016*rs;
+    let rxT=my*.4+(sceneName==="wave"?.35:0);
+    if(sceneName==="breath"){const target=window.breathTarget!=null?(window.breathTarget===1?1.18:.82):1+Math.sin(t*.8)*.08*rs;breathScale+=(target-breathScale)*.02;rxT=1.0;}
+    else breathScale+=(1-breathScale)*.05;
+    rx+=(rxT-rx)*(sceneName==="breath"?.03:.04);
+    camX+=(mx*1.2-camX)*.05; camY+=(-my*.8-sy*.0012-camY)*.05;
+    const cy=Math.cos(ry),sy_=Math.sin(ry),cx=Math.cos(rx),sx=Math.sin(rx);
+    ctx.setTransform(dpr,0,0,dpr,0,0);
+    ctx.globalCompositeOperation="source-over";ctx.fillStyle="#050b0c";ctx.fillRect(0,0,W,H);
+    ctx.globalCompositeOperation="lighter";
+    const lookY=-sy*.0012;
+    // dust
+    ctx.fillStyle="#93a8a3";
+    for(let i=0;i<D;i++){const a=t*.01*rs,x0=dust[i*3],z0=dust[i*3+2],x=x0*Math.cos(a)+z0*Math.sin(a),z=-x0*Math.sin(a)+z0*Math.cos(a),y=dust[i*3+1];
+      const dz=8-z; if(dz<.5)continue; const px=W/2+(x-camX)*F/dz,py=H/2-(y-lookY-(camY-lookY))*F/dz; if(px<0||px>W||py<0||py>H)continue;
+      ctx.globalAlpha=.35*Math.exp(-Math.pow(.06*dz,2)); const s=Math.max(.6,.03*F/dz); ctx.fillRect(px,py,s,s);}
+    buckets[0].length=buckets[1].length=buckets[2].length=0;
+    const k=scl*breathScale;
+    for(let i=0;i<N;i++){
+      let x=pos[i*3]*k,y=pos[i*3+1]*k,z=pos[i*3+2]*k;
+      let x1=x*cy+z*sy_, z1=-x*sy_+z*cy;           // rotate Y
+      let y2=y*cx-z1*sx, z2=y*sx+z1*cx;            // rotate X
+      x1+=offX*scl; const dz=8-z2; if(dz<.4)continue;
+      const px=W/2+(x1-camX)*F/dz, py=H/2-(y2-camY)*F/dz;
+      if(px<-10||px>W+10||py<-10||py>H+10)continue;
+      buckets[col[i]].push(px,py,dz);
+    }
+    for(let c=0;c<3;c++){ctx.fillStyle=COLORS[c];const b=buckets[c];
+      for(let j=0;j<b.length;j+=3){const dz=b[j+2],s=Math.max(.8,.04*F/dz);ctx.globalAlpha=.85*Math.exp(-Math.pow(.06*dz,2));ctx.beginPath();ctx.arc(b[j],b[j+1],s*.5,0,TAU);ctx.fill();}}
+    ctx.globalAlpha=1;
+    requestAnimationFrame(frame);
+  }
+  requestAnimationFrame(frame);
 }
 
 
 route();
 /* load the 3D library after the page is visible (self-hosted, no outside CDN) */
 (function(){const sc=document.createElement("script");sc.src="/assets/three.min.js";sc.async=true;
-  sc.onload=()=>{document.documentElement.classList.remove("no-gl");initGL();}; sc.onerror=()=>document.documentElement.classList.add("no-gl");
+  sc.onload=()=>{document.documentElement.classList.remove("no-gl");initGL();}; sc.onerror=start2D;
   document.head.appendChild(sc);
-  setTimeout(()=>{if(!window.THREE)document.documentElement.classList.add("no-gl")},6000);})();
+  setTimeout(()=>{if(!window.THREE)start2D()},6000);})();
 </script>
 
 </body>
