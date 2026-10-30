@@ -1,0 +1,854 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="description" content="Software, web, mobile, SaaS, hardware integration, market research, applied AI and QA automation from Tabutech Labs.">
+<meta name="theme-color" content="#050b0c">
+<meta property="og:title" content="Services · Tabutech Labs">
+<meta property="og:description" content="Software, web, mobile, SaaS, hardware integration, market research, applied AI and QA automation from Tabutech Labs.">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://tabutechlabs.com/services/">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect x='3' y='3' width='26' height='26' rx='7' fill='%23050b0c' stroke='%23f2a541' stroke-width='2.5'/%3E%3Crect x='10' y='10' width='12' height='12' rx='3' fill='none' stroke='%235fd3c2' stroke-width='2.5'/%3E%3C/svg%3E">
+<style>:root{padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}body{margin:0}img{max-width:100%}[hidden]{display:none!important}</style>
+<title>Services · Tabutech Labs</title>
+<link rel="canonical" href="https://tabutechlabs.com/services/">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,500;1,9..144,300;1,9..144,500&family=Figtree:wght@400;500;600&family=JetBrains+Mono:wght@400;500&family=Tiro+Devanagari+Hindi&display=swap">
+<style>
+/* Layout: one fixed WebGL particle field behind everything that morphs per page; content floats in a 1200px column on glass panels. Dark-only by design (deep space lab). */
+:root{
+  --bg:#050b0c;          /* deep lab black, teal-biased (from the brand's #020806) */
+  --bg-2:#0a1517;
+  --panel:rgba(14,28,31,.62);
+  --line:rgba(176,214,208,.14);
+  --fg:#e8efe9;
+  --muted:#93a8a3;
+  --saffron:#f2a541;     /* accent: marigold / saffron */
+  --teal:#5fd3c2;        /* secondary: signal teal */
+  --display:"Fraunces", "Iowan Old Style", Georgia, serif;
+  --body:"Figtree", system-ui, -apple-system, "Segoe UI", sans-serif;
+  --mono:"JetBrains Mono", ui-monospace, "SF Mono", Menlo, monospace;
+  --deva:"Tiro Devanagari Hindi", "Noto Serif Devanagari", serif;
+  --r:18px;
+  color-scheme:dark;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{background:var(--bg);color:var(--fg);font-family:var(--body);font-size:16px;line-height:1.6;overflow-x:hidden;-webkit-font-smoothing:antialiased}
+body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset-top,0px);z-index:60;background:var(--bg)}
+#gl{position:fixed;inset:0;width:100%;height:100%;z-index:0;display:block}
+.vignette{position:fixed;inset:0;z-index:1;pointer-events:none;background:radial-gradient(ellipse at 50% 40%,transparent 30%,rgba(5,11,12,.75) 80%,var(--bg) 100%)}
+a{color:inherit}
+:focus-visible{outline:2px solid var(--saffron);outline-offset:3px;border-radius:6px}
+
+/* ---------- header ---------- */
+header{position:sticky;top:env(safe-area-inset-top,0px);z-index:50;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px));backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);background:rgba(5,11,12,.55);border-bottom:1px solid var(--line)}
+.bar{max-width:1200px;margin:0 auto;display:flex;align-items:center;justify-content:space-between;gap:16px;height:68px}
+.logo{display:flex;align-items:center;gap:10px;text-decoration:none;font-family:var(--display);font-size:1.2rem;font-weight:500;letter-spacing:-.01em}
+.logo-mark{width:30px;height:30px;perspective:200px}
+.logo-mark i{display:block;width:100%;height:100%;border:1.5px solid var(--saffron);border-radius:7px;animation:spin 9s linear infinite;transform-style:preserve-3d;position:relative}
+.logo-mark i::after{content:"";position:absolute;inset:6px;border:1.5px solid var(--teal);border-radius:4px;transform:translateZ(8px)}
+@keyframes spin{to{transform:rotateX(360deg) rotateY(360deg)}}
+nav ul{display:flex;gap:4px;list-style:none;margin:0;padding:0}
+nav a{display:block;text-decoration:none;font-size:.92rem;font-weight:500;color:var(--muted);padding:8px 14px;border-radius:999px;transition:color .2s,background .2s}
+nav a:hover{color:var(--fg)}
+nav a[aria-current="page"]{color:var(--bg);background:var(--fg)}
+.cta-mini{font-family:var(--mono);font-size:.78rem;letter-spacing:.06em;text-transform:uppercase;text-decoration:none;border:1px solid var(--saffron);color:var(--saffron);padding:8px 14px;border-radius:999px;white-space:nowrap}
+.cta-mini:hover{background:var(--saffron);color:var(--bg)}
+.burger{display:none;background:none;border:1px solid var(--line);color:var(--fg);width:42px;height:42px;border-radius:12px;font-size:1.1rem;cursor:pointer}
+@media (max-width:900px){
+  .burger{display:block}
+  .cta-mini{display:none}
+  nav{position:fixed;left:0;right:0;top:calc(68px + env(safe-area-inset-top,0px));background:rgba(5,11,12,.96);border-bottom:1px solid var(--line);padding:12px max(16px,env(safe-area-inset-right,0px)) 20px max(16px,env(safe-area-inset-left,0px));display:none}
+  nav.open{display:block}
+  nav ul{flex-direction:column}
+  nav a{font-size:1.1rem;padding:12px 16px}
+}
+
+/* ---------- page shell ---------- */
+main{position:relative;z-index:2}
+.wrap{max-width:1200px;margin:0 auto;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px))}
+.page{animation:rise .7s cubic-bezier(.2,.7,.2,1)}
+@keyframes rise{from{transform:translateY(18px)}to{transform:none}}
+section{padding-block:72px}
+.eyebrow{font-family:var(--mono);font-size:.75rem;letter-spacing:.16em;text-transform:uppercase;color:var(--teal);display:flex;align-items:center;gap:10px;margin:0 0 18px}
+.eyebrow::before{content:"";width:22px;height:1px;background:currentColor}
+h1,h2,h3{font-family:var(--display);font-weight:300;letter-spacing:-.025em;text-wrap:balance;margin:0}
+h1{font-size:clamp(2.8rem,7.4vw,6.4rem);line-height:.98}
+h2{font-size:clamp(2rem,4.4vw,3.4rem);line-height:1.05}
+h3{font-size:1.45rem;font-weight:500;line-height:1.2}
+h1 em,h2 em{font-style:italic;color:var(--saffron)}
+.lede{font-size:clamp(1.05rem,1.6vw,1.25rem);color:var(--muted);max-width:60ch;margin:24px 0 0}
+p{max-width:65ch}
+.muted{color:var(--muted)}
+.btns{display:flex;flex-wrap:wrap;gap:12px;margin-top:34px}
+.btn{display:inline-flex;align-items:center;gap:10px;text-decoration:none;font-weight:600;font-size:.95rem;padding:14px 22px;border-radius:999px;border:1px solid var(--line);background:rgba(232,239,233,.04);transition:transform .2s,background .2s,border-color .2s;cursor:pointer;color:var(--fg);font-family:var(--body)}
+.btn:hover{transform:translateY(-2px);border-color:var(--fg)}
+.btn.primary{background:var(--saffron);color:#1b1205;border-color:var(--saffron)}
+.btn.primary:hover{background:#ffb95c}
+.btn .arr{transition:transform .2s}
+.btn:hover .arr{transform:translate(3px,-3px)}
+
+/* glass + 3D tilt */
+.glass{background:var(--panel);border:1px solid var(--line);border-radius:var(--r);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px)}
+.tilt{transform-style:preserve-3d;transition:transform .35s cubic-bezier(.2,.7,.2,1),border-color .3s;will-change:transform}
+.tilt:hover{border-color:rgba(242,165,65,.45)}
+.tilt .pop{transform:translateZ(30px)}
+.grid{display:grid;gap:18px}
+.g2{grid-template-columns:repeat(2,minmax(0,1fr))}
+.g3{grid-template-columns:repeat(3,minmax(0,1fr))}
+.g4{grid-template-columns:repeat(4,minmax(0,1fr))}
+@media (max-width:980px){.g4{grid-template-columns:repeat(2,minmax(0,1fr))}.g3{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media (max-width:640px){.g2,.g3,.g4{grid-template-columns:1fr}}
+.card{padding:28px;display:flex;flex-direction:column;gap:12px;min-width:0}
+.card p{margin:0;color:var(--muted);font-size:.96rem}
+.tag{font-family:var(--mono);font-size:.7rem;letter-spacing:.12em;text-transform:uppercase;color:var(--saffron)}
+
+/* ---------- home ---------- */
+.hero{min-height:min(88vh,860px);display:flex;flex-direction:column;justify-content:center;padding-block:64px 40px}
+.hero h1 .line{display:block}
+.motto{margin-top:56px;display:flex;align-items:baseline;gap:16px;flex-wrap:wrap}
+.motto b{font-family:var(--deva);font-weight:400;font-size:clamp(1.6rem,3vw,2.2rem);color:var(--fg)}
+.motto span{font-family:var(--mono);font-size:.74rem;letter-spacing:.14em;text-transform:uppercase;color:var(--muted)}
+.ticker{border-block:1px solid var(--line);overflow:hidden;background:rgba(5,11,12,.5);position:relative;z-index:2}
+.ticker-track{display:flex;gap:48px;width:max-content;padding-block:18px;animation:tick 38s linear infinite;font-family:var(--display);font-style:italic;font-size:1.4rem;color:var(--muted)}
+.ticker-track span::after{content:"✦";font-style:normal;color:var(--saffron);margin-left:48px;font-size:.9rem}
+@keyframes tick{to{transform:translateX(-50%)}}
+.split{display:grid;grid-template-columns:1.1fr 1fr;gap:48px;align-items:center}
+@media (max-width:880px){.split{grid-template-columns:1fr}}
+.prod-card{padding:32px;min-height:340px;position:relative;overflow:hidden;text-decoration:none;display:flex;flex-direction:column;justify-content:flex-end;gap:12px}
+.prod-card .orb{position:absolute;top:28px;right:28px;width:120px;height:120px;border-radius:50%}
+.orb.tb{background:radial-gradient(circle at 32% 28%,#fff8 0,#5fd3c255 22%,#5fd3c211 55%,transparent 70%);border:1px solid #5fd3c266;box-shadow:inset -12px -16px 30px #5fd3c233,0 0 60px #5fd3c222;animation:float 6s ease-in-out infinite}
+.orb.sh{border-radius:50%;border:10px solid var(--saffron);opacity:.85;box-shadow:0 0 50px #f2a54155,inset 0 0 20px #f2a54144;animation:breathe 8s ease-in-out infinite}
+@keyframes float{50%{transform:translateY(-12px)}}
+@keyframes breathe{0%,100%{transform:scale(.78)}45%,55%{transform:scale(1)}}
+.prod-card h3{font-size:2rem;font-weight:300}
+.go{font-family:var(--mono);font-size:.78rem;letter-spacing:.1em;text-transform:uppercase;color:var(--teal);margin-top:6px}
+.stat-row{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:18px}
+@media (max-width:640px){.stat-row{grid-template-columns:1fr}}
+.stat{padding:26px}
+.stat b{display:block;font-family:var(--display);font-weight:300;font-size:3rem;line-height:1;color:var(--saffron)}
+.stat span{color:var(--muted);font-size:.92rem}
+
+/* ---------- services ---------- */
+.svc{padding:28px;gap:14px}
+.svc .ic{width:52px;height:52px;border-radius:14px;display:grid;place-items:center;background:linear-gradient(135deg,rgba(95,211,194,.18),rgba(242,165,65,.12));border:1px solid var(--line)}
+.svc .ic svg{width:26px;height:26px;stroke:var(--fg);fill:none;stroke-width:1.5;stroke-linecap:round;stroke-linejoin:round}
+.svc ul{margin:4px 0 0;padding:0;list-style:none;display:flex;flex-wrap:wrap;gap:6px}
+.svc li{font-family:var(--mono);font-size:.7rem;color:var(--muted);border:1px solid var(--line);border-radius:999px;padding:3px 10px}
+.steps{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:0;counter-reset:s;border-top:1px solid var(--line)}
+@media (max-width:880px){.steps{grid-template-columns:1fr}}
+.step{padding:28px 22px 6px 0;border-right:1px solid var(--line);counter-increment:s}
+.step:last-child{border-right:0}
+@media (max-width:880px){.step{border-right:0;border-bottom:1px solid var(--line);padding:22px 0}}
+.step::before{content:counter(s,decimal-leading-zero);font-family:var(--mono);color:var(--saffron);font-size:.8rem;display:block;margin-bottom:12px}
+.step h3{font-size:1.2rem}
+.step p{color:var(--muted);font-size:.92rem;margin:8px 0 0}
+
+/* ---------- product detail ---------- */
+.flow{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:14px;position:relative}
+@media (max-width:880px){.flow{grid-template-columns:1fr 1fr}}
+@media (max-width:520px){.flow{grid-template-columns:1fr}}
+.flow .card{padding:22px}
+.flow .k{font-family:var(--mono);font-size:.72rem;color:var(--teal);letter-spacing:.1em;text-transform:uppercase}
+.demo{padding:28px;display:grid;gap:18px}
+.claim{font-family:var(--display);font-size:1.4rem;font-style:italic;line-height:1.35}
+.meter{height:10px;border-radius:99px;background:rgba(232,239,233,.08);overflow:hidden}
+.meter i{display:block;height:100%;width:62%;background:linear-gradient(90deg,var(--teal),var(--saffron));border-radius:99px;transition:width 1.2s cubic-bezier(.2,.7,.2,1)}
+.src{display:flex;justify-content:space-between;gap:12px;padding:12px 0;border-top:1px solid var(--line);font-size:.92rem}
+.src span:last-child{font-family:var(--mono);font-size:.76rem;white-space:nowrap}
+.ok{color:var(--teal)}.warn{color:var(--saffron)}
+.example{font-family:var(--mono);font-size:.68rem;letter-spacing:.12em;text-transform:uppercase;color:var(--muted);border:1px dashed var(--line);padding:3px 8px;border-radius:6px;justify-self:start}
+.breath{display:grid;grid-template-columns:auto 1fr;gap:36px;align-items:center;padding:32px}
+@media (max-width:700px){.breath{grid-template-columns:1fr;justify-items:center;text-align:center}}
+.ring{width:220px;height:220px;border-radius:50%;display:grid;place-items:center;position:relative}
+.ring::before{content:"";position:absolute;inset:0;border-radius:50%;border:14px solid var(--saffron);box-shadow:0 0 70px #f2a54166,inset 0 0 30px #f2a54144;transform:scale(var(--s,.7));transition:transform var(--d,4s) cubic-bezier(.45,0,.55,1)}
+.ring b{font-family:var(--display);font-weight:300;font-size:1.6rem;position:relative}
+.ring small{display:block;font-family:var(--mono);font-size:.72rem;color:var(--muted);text-align:center}
+.seg{display:inline-flex;border:1px solid var(--line);border-radius:999px;padding:4px;gap:4px;flex-wrap:wrap}
+.seg button{background:none;border:0;color:var(--muted);font:500 .85rem var(--body);padding:8px 14px;border-radius:999px;cursor:pointer}
+.seg button[aria-pressed="true"]{background:var(--fg);color:var(--bg)}
+.spec{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:0;border-top:1px solid var(--line)}
+@media (max-width:640px){.spec{grid-template-columns:1fr}}
+.spec div{padding:18px 18px 18px 0;border-bottom:1px solid var(--line)}
+.spec dt{font-family:var(--mono);font-size:.72rem;letter-spacing:.1em;text-transform:uppercase;color:var(--muted)}
+.spec dd{margin:4px 0 0;font-size:1.02rem}
+.back{font-family:var(--mono);font-size:.78rem;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);text-decoration:none;display:inline-block;margin-bottom:28px}
+.back:hover{color:var(--fg)}
+
+/* ---------- team ---------- */
+.member{padding:0;overflow:hidden}
+.member .face{aspect-ratio:4/3;max-width:100%;display:grid;place-items:center;position:relative;background:radial-gradient(circle at 50% 120%,rgba(242,165,65,.25),transparent 60%),linear-gradient(160deg,#0f2427,#081213)}
+.member .face canvas{width:100%;height:100%;display:block}
+.member .face .init{position:absolute;font-family:var(--display);font-size:3rem;font-weight:300;color:var(--fg)}
+.member .info{padding:22px 24px 26px;display:grid;gap:6px}
+.member .info p{margin:0;color:var(--muted);font-size:.92rem}
+.placeholder-note{font-family:var(--mono);font-size:.72rem;color:var(--muted);border:1px dashed var(--line);border-radius:10px;padding:10px 14px;display:inline-block;margin-top:18px}
+.roles{display:grid;gap:0;border-top:1px solid var(--line)}
+.role{display:flex;justify-content:space-between;align-items:center;gap:18px;padding:22px 0;border-bottom:1px solid var(--line);flex-wrap:wrap}
+.role h3{font-size:1.3rem}
+.role span{font-family:var(--mono);font-size:.76rem;color:var(--muted)}
+
+/* ---------- about ---------- */
+.big-quote{font-family:var(--display);font-weight:300;font-size:clamp(1.6rem,3.2vw,2.6rem);line-height:1.25;letter-spacing:-.02em;max-width:28ch}
+.big-quote em{color:var(--teal)}
+.century{padding:30px;display:grid;gap:18px}
+.century-bar{display:grid;grid-template-columns:repeat(20,1fr);gap:4px}
+.century-bar i{height:38px;border-radius:4px;background:rgba(232,239,233,.08)}
+.century-bar i.on{background:linear-gradient(180deg,var(--saffron),#c97a1d)}
+.century-legend{display:flex;justify-content:space-between;font-family:var(--mono);font-size:.72rem;color:var(--muted)}
+
+/* ---------- contact ---------- */
+.channels{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px}
+@media (max-width:640px){.channels{grid-template-columns:1fr}}
+.chan{padding:20px 22px;display:flex;flex-direction:column;gap:6px;min-width:0}
+.chan .tag{color:var(--teal)}
+.chan .val{font-family:var(--mono);font-size:1rem;user-select:all;word-break:break-all}
+.chan .row{display:flex;gap:8px;flex-wrap:wrap;margin-top:6px}
+.chip{font:500 .8rem var(--body);color:var(--fg);background:rgba(232,239,233,.06);border:1px solid var(--line);padding:6px 12px;border-radius:999px;text-decoration:none;cursor:pointer}
+.chip:hover{border-color:var(--fg)}
+.social{display:flex;flex-wrap:wrap;gap:10px}
+form{padding:30px;display:grid;gap:16px}
+label{font-family:var(--mono);font-size:.72rem;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);display:grid;gap:8px}
+input,select,textarea{font:400 1rem var(--body);color:var(--fg);background:rgba(5,11,12,.6);border:1px solid var(--line);border-radius:12px;padding:13px 14px;width:100%;text-transform:none;letter-spacing:0}
+input:focus,select:focus,textarea:focus{outline:none;border-color:var(--saffron)}
+textarea{min-height:130px;resize:vertical}
+.two{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+@media (max-width:560px){.two{grid-template-columns:1fr}}
+.draft{border:1px solid var(--teal);border-radius:12px;padding:16px;background:rgba(95,211,194,.06);font-size:.92rem;white-space:pre-wrap}
+.toast{position:fixed;left:50%;bottom:calc(24px + env(safe-area-inset-bottom,0px));transform:translateX(-50%);background:var(--fg);color:var(--bg);padding:10px 18px;border-radius:999px;font-weight:600;font-size:.9rem;z-index:80}
+
+/* ---------- footer ---------- */
+footer{position:relative;z-index:2;border-top:1px solid var(--line);background:rgba(5,11,12,.8);padding-block:56px 40px}
+.foot{display:grid;grid-template-columns:1.4fr 1fr 1fr 1fr;gap:32px}
+@media (max-width:820px){.foot{grid-template-columns:1fr 1fr}}
+.foot h4{font-family:var(--mono);font-size:.72rem;letter-spacing:.14em;text-transform:uppercase;color:var(--muted);margin:0 0 14px;font-weight:500}
+.foot ul{list-style:none;margin:0;padding:0;display:grid;gap:8px}
+.foot a{text-decoration:none;color:var(--fg);opacity:.85}
+.foot a:hover{opacity:1;color:var(--saffron)}
+.fine{margin-top:44px;display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap;font-family:var(--mono);font-size:.72rem;color:var(--muted)}
+.big-word{font-family:var(--display);font-weight:300;font-style:italic;font-size:clamp(3rem,13vw,11rem);line-height:.9;letter-spacing:-.04em;color:transparent;-webkit-text-stroke:1px rgba(232,239,233,.18);margin-top:40px;white-space:nowrap;overflow:hidden}
+
+.scene-label{position:fixed;right:max(16px,env(safe-area-inset-right,0px));bottom:calc(16px + env(safe-area-inset-bottom,0px));z-index:3;font-family:var(--mono);font-size:.68rem;letter-spacing:.14em;text-transform:uppercase;color:var(--muted);pointer-events:none;opacity:.8}
+@media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}html{scroll-behavior:auto}}
+
+/* ---------- WhatsApp chat widget ---------- */
+.scene-label{right:auto;left:max(16px,env(safe-area-inset-left,0px))}
+.wa-fab{text-decoration:none;position:fixed;right:calc(20px + env(safe-area-inset-right,0px));bottom:calc(20px + env(safe-area-inset-bottom,0px));z-index:70;display:flex;align-items:center;gap:10px;background:#25d366;color:#06331b;border:0;border-radius:999px;padding:14px 18px 14px 14px;font:600 .95rem var(--body);cursor:pointer;box-shadow:0 10px 30px rgba(37,211,102,.35),0 2px 8px rgba(0,0,0,.4);transition:transform .2s}
+.wa-fab:hover{transform:translateY(-3px)}
+.wa-fab svg{width:26px;height:26px;flex:none}
+.wa-fab::after{content:"";position:absolute;inset:-6px;border-radius:999px;border:2px solid #25d366;opacity:0;animation:waPulse 2.6s ease-out infinite}
+@keyframes waPulse{0%{opacity:.7;transform:scale(.9)}100%{opacity:0;transform:scale(1.25)}}
+@media (max-width:560px){.wa-fab .wa-txt{display:none}.wa-fab{padding:15px}}
+</style>
+</head>
+<body>
+
+
+<canvas id="gl" aria-hidden="true"></canvas>
+<div class="vignette"></div>
+
+<header>
+  <div class="bar">
+    <a class="logo" href="/" aria-label="Tabutech Labs home"><span class="logo-mark"><i></i></span>Tabutech Labs</a>
+    <nav id="nav" aria-label="Main">
+      <ul>
+        <li><a href="/">Home</a></li>
+        <li><a href="/about/">About</a></li>
+        <li><a href="/products/">Products</a></li>
+        <li><a href="/services/">Services</a></li>
+        <li><a href="/team/">Team</a></li>
+        <li><a href="/contact/">Contact</a></li>
+      </ul>
+    </nav>
+    <a class="cta-mini" href="/contact/">Start a project</a>
+    <button class="burger" id="burger" aria-label="Open menu" aria-expanded="false" aria-controls="nav">☰</button>
+  </div>
+</header>
+
+<main id="app"></main>
+
+<footer>
+  <div class="wrap">
+    <div class="foot">
+      <div>
+        <a class="logo" href="/"><span class="logo-mark"><i></i></span>Tabutech Labs</a>
+        <p class="muted" style="margin-top:14px;font-size:.92rem">A technology research and engineering company, building patent-pending products and delivering the same capability to our partners.</p>
+      </div>
+      <div><h4>Company</h4><ul><li><a href="/about/">About us</a></li><li><a href="/team/">Team</a></li><li><a href="/team/#team-careers">Careers</a></li><li><a href="/contact/">Contact</a></li></ul></div>
+      <div><h4>Products</h4><ul><li><a href="/truthbubble/">TruthBubble AI</a></li><li><a href="/shivastras/">Shivastras</a></li><li><a href="/products/">All products</a></li></ul></div>
+      <div><h4>Follow</h4><ul>
+        <li><a href="https://www.linkedin.com/company/tabutechlabs/" target="_blank" rel="noopener">LinkedIn ↗</a></li>
+        <li><a href="https://www.instagram.com/tabutechlabs/" target="_blank" rel="noopener">Instagram ↗</a></li>
+        <li><a href="https://www.facebook.com/profile.php?id=61593670460335" target="_blank" rel="noopener">Facebook ↗</a></li>
+        <li><a href="https://www.reddit.com/user/Tabutechlabs/" target="_blank" rel="noopener">Reddit ↗</a></li>
+      </ul></div>
+    </div>
+    <div class="big-word" aria-hidden="true">next 100+ years</div>
+    <div class="fine"><span>© 2026 Tabutech Labs Pvt Ltd · India</span><span>तकनीक से प्रगति · Progress through technology</span></div>
+  </div>
+</footer>
+
+<div class="scene-label" id="sceneLabel">scene · origin</div>
+
+
+<a class="wa-fab" href="https://wa.me/919971861492" target="_blank" rel="noopener" aria-label="Chat with us on WhatsApp">
+  <svg viewBox="0 0 24 24" aria-hidden="true"><path fill="#06331b" d="M12 2.5a9.5 9.5 0 0 0-8.2 14.3L2.5 21.5l4.8-1.3A9.5 9.5 0 1 0 12 2.5z"/><path fill="#25d366" d="M9.1 7.3c.2 0 .4 0 .6.4l.8 1.9c.1.2.1.4 0 .6l-.5.7c-.1.2-.2.3 0 .6.5.9 1.3 1.8 2.3 2.4.3.2.5.1.6 0l.7-.8c.2-.2.4-.2.6-.1l1.8.9c.3.1.4.2.4.4 0 .6-.3 1.4-1 1.8-.7.4-1.6.5-3-.1-1.8-.8-3.4-2.3-4.3-4-.6-1.2-.6-2.3 0-3.1.3-.4.6-.6 1-.6z"/></svg>
+  <span class="wa-txt">Chat with us</span>
+</a>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+<script>
+/* Contact form delivery: enquiries are emailed to this inbox via FormSubmit.
+   After activating, you can replace the email with the random alias FormSubmit gives you. */
+const FORM_ENDPOINT = "https://formsubmit.co/ajax/tabutechlabs@gmail.com";
+const PHONE = "+91 99718 61492", PHONE_RAW = "+919971861492", EMAIL = "tabutechlabs@gmail.com";
+const arrow = '<span class="arr">↗</span>';
+const icon = {
+  code:'<path d="M8 8l-4 4 4 4M16 8l4 4-4 4M13.5 5l-3 14"/>',
+  web:'<circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3c3 3.2 3 14.8 0 18M12 3c-3 3.2-3 14.8 0 18"/>',
+  mobile:'<rect x="7" y="2.5" width="10" height="19" rx="2.5"/><path d="M11 18.5h2"/>',
+  saas:'<path d="M7 18a4.5 4.5 0 1 1 .9-8.9A6 6 0 0 1 19 11a3.5 3.5 0 0 1-.5 7z"/>',
+  hw:'<rect x="6" y="6" width="12" height="12" rx="2"/><path d="M9 2.5v3.5M15 2.5v3.5M9 18v3.5M15 18v3.5M2.5 9H6M2.5 15H6M18 9h3.5M18 15h3.5"/><rect x="9.5" y="9.5" width="5" height="5" rx="1"/>',
+  market:'<path d="M3 20h18M6 16v-4M11 16V8M16 16v-6M20 5l-5 4-4-2-5 3"/>',
+  ai:'<circle cx="12" cy="12" r="3"/><path d="M12 3v3M12 18v3M3 12h3M18 12h3M5.6 5.6l2.1 2.1M16.3 16.3l2.1 2.1M5.6 18.4l2.1-2.1M16.3 7.7l2.1-2.1"/>',
+  qa:'<path d="M9 12l2 2 4-4"/><path d="M12 3l7 3v6c0 4.5-3 7.7-7 9-4-1.3-7-4.5-7-9V6z"/>'
+};
+const svc = [
+  ["code","Software development","Custom software engineered for reliability, from internal tools to complex data systems.",["Architecture","APIs","Integrations"]],
+  ["web","Web development","Fast, accessible websites and web apps with modern frameworks and clean design.",["React","Next.js","Performance"]],
+  ["mobile","Mobile app development","Native and cross-platform apps for iOS and Android, designed for daily use.",["iOS","Android","Flutter"]],
+  ["saas","SaaS product development","Multi-tenant platforms with billing, auth and analytics, built to scale from day one.",["Multi-tenant","Billing","Cloud"]],
+  ["hw","Hardware integration","Firmware, sensors and connected devices that talk cleanly to your software stack.",["IoT","Firmware","BLE"]],
+  ["market","Market research","Evidence before engineering: user interviews, competitive maps and opportunity sizing.",["Discovery","Sizing","Validation"]],
+  ["ai","AI & applied research","Applied machine learning, LLM systems and verification pipelines grounded in real data.",["LLMs","NLP","Evaluation"]],
+  ["qa","QA & test automation","Automated test suites and release gates so every build ships with confidence.",["E2E","CI/CD","Load tests"]],
+];
+const svcCard = ([k,t,d,tags]) => `<article class="glass card svc tilt"><div class="ic pop"><svg viewBox="0 0 24 24">${icon[k]}</svg></div><h3>${t}</h3><p>${d}</p><ul>${tags.map(x=>`<li>${x}</li>`).join("")}</ul></article>`;
+
+const pages = {
+/* ---------------- HOME ---------------- */
+home: () => `
+<div class="wrap">
+  <section class="hero">
+    <p class="eyebrow">Technology research & engineering · India</p>
+    <h1><span class="line">Striving to</span><span class="line">build the</span><span class="line"><em>next 100+ years…</em></span></h1>
+    <p class="lede">Tabutech Labs is a technology research and engineering company, building patent-pending products and delivering the same capability to our partners.</p>
+    <div class="btns"><a class="btn primary" href="/contact/">Connect with us ${arrow}</a><a class="btn" href="/products/">Explore our products</a></div>
+    <div class="motto"><b>तकनीक से प्रगति</b><span>Progress through technology</span></div>
+  </section>
+</div>
+<div class="ticker" aria-hidden="true"><div class="ticker-track">${["Software","Web","Mobile","SaaS","Hardware","Market research","Applied AI","QA automation"].concat(["Software","Web","Mobile","SaaS","Hardware","Market research","Applied AI","QA automation"]).map(x=>`<span>${x}</span>`).join("")}</div></div>
+<div class="wrap">
+  <section>
+    <p class="eyebrow">Our products</p>
+    <div class="split" style="align-items:end;margin-bottom:36px"><h2>Two products, one lab: <em>trust</em> and <em>calm</em>.</h2><p class="muted">We build our own patent-pending products first, then bring the same research and engineering capability to partners.</p></div>
+    <div class="grid g2">
+      <a class="glass prod-card tilt" href="/truthbubble/"><span class="orb tb pop"></span><span class="tag">AI · Flagship</span><h3>TruthBubble AI</h3><p class="muted" style="margin:0">An AI-assisted verification layer for claims, sources, and context.</p><span class="go">View product →</span></a>
+      <a class="glass prod-card tilt" href="/shivastras/"><span class="orb sh pop"></span><span class="tag">Wearable · Concept</span><h3>Shivastras</h3><p class="muted" style="margin:0">A screen-free wearable concept for meditation and conscious breathing.</p><span class="go">View product →</span></a>
+    </div>
+  </section>
+  <section>
+    <p class="eyebrow">What we do</p>
+    <div class="split" style="align-items:end;margin-bottom:36px"><h2>Eight disciplines under one roof.</h2><p class="muted">From the first market question to the last automated test, a single team carries your product from idea to launch.</p></div>
+    <div class="grid g4">${svc.slice(0,4).map(svcCard).join("")}</div>
+    <div class="btns"><a class="btn" href="/services/">All services ${arrow}</a></div>
+  </section>
+  <section>
+    <div class="stat-row">
+      <div class="glass stat tilt"><b class="pop">100+</b><span>The time horizon we design for, measured in years</span></div>
+      <div class="glass stat tilt"><b class="pop">2</b><span>In-house products in development, both patent-pending</span></div>
+      <div class="glass stat tilt"><b class="pop">8</b><span>Engineering and research disciplines offered to partners</span></div>
+    </div>
+  </section>
+  <section>
+    <div class="glass card" style="padding:clamp(28px,5vw,56px);align-items:flex-start">
+      <p class="eyebrow">Work with us</p>
+      <h2>Have a hard problem? <em>Bring it to the lab.</em></h2>
+      <p class="lede" style="margin-top:8px">Tell us what you are building. We reply with a plan, a team and a first milestone.</p>
+      <div class="btns" style="margin-top:12px"><a class="btn primary" href="/contact/">Start a conversation ${arrow}</a><a class="btn" href="https://wa.me/919971861492" target="_blank" rel="noopener">Chat on WhatsApp</a></div>
+    </div>
+  </section>
+</div>`,
+
+/* ---------------- ABOUT ---------------- */
+about: () => `
+<div class="wrap">
+  <section class="hero" style="min-height:auto;padding-block:96px 48px">
+    <p class="eyebrow">About us</p>
+    <h1>A lab built for <em>the long view.</em></h1>
+    <p class="lede">Tabutech Labs Pvt Ltd is a technology research and software engineering company dedicated to building next-generation artificial intelligence solutions, SaaS platforms, and digital applications.</p>
+  </section>
+  <section style="padding-top:0">
+    <div class="split">
+      <div>
+        <p class="big-quote">We specialise in <em>information processing</em>, automated verification systems and data-driven platforms designed to solve real-world problems.</p>
+      </div>
+      <div class="muted" style="display:grid;gap:16px">
+        <p style="margin:0">Starting with our flagship product, TruthBubble AI, our lab focuses on enhancing digital trust, decision-making and productivity.</p>
+        <p style="margin:0">Tabutech Labs is committed to continuous innovation, turning cutting-edge technology into scalable, proprietary products that empower users and enterprises.</p>
+        <p style="margin:0">We research societal and industrial challenges, develop solutions in-house, and commercialise them, then offer that same capability to partners who need it.</p>
+      </div>
+    </div>
+  </section>
+  <section>
+    <div class="glass century">
+      <p class="eyebrow" style="margin:0">The 100-year horizon</p>
+      <h3 style="font-family:var(--display);font-weight:300;font-size:1.8rem">Every block is five years. We are building for all of them.</h3>
+      <div class="century-bar" id="century">${Array.from({length:20},(_,i)=>`<i class="${i<1?'on':''}"></i>`).join("")}</div>
+      <div class="century-legend"><span>2026 · today</span><span>2076</span><span>2126+</span></div>
+    </div>
+  </section>
+  <section>
+    <p class="eyebrow">What we believe</p>
+    <h2 style="margin-bottom:36px">Principles that guide the lab.</h2>
+    <div class="grid g4">
+      <article class="glass card tilt"><span class="tag pop">Research first</span><h3>Evidence before code</h3><p>We study the problem and the people before writing a line, so we build the right thing.</p></article>
+      <article class="glass card tilt"><span class="tag pop">Ownership</span><h3>Proprietary by design</h3><p>We build and protect our own IP. Two products are already patent-pending.</p></article>
+      <article class="glass card tilt"><span class="tag pop">Trust</span><h3>Verifiable systems</h3><p>Software should show its work. We favour transparent, auditable decisions.</p></article>
+      <article class="glass card tilt"><span class="tag pop">Longevity</span><h3>Built to last</h3><p>Clean architecture and tested code that teams can maintain for decades.</p></article>
+    </div>
+  </section>
+  <section>
+    <div class="split">
+      <div><p class="eyebrow">Our motto</p><h2 style="font-family:var(--deva);font-weight:400;letter-spacing:0">तकनीक से प्रगति</h2><p class="lede">Progress through technology. Built in India, for problems everywhere.</p></div>
+      <div class="btns" style="justify-content:flex-start"><a class="btn primary" href="/team/">Meet the team ${arrow}</a><a class="btn" href="/services/">See what we do</a></div>
+    </div>
+  </section>
+</div>`,
+
+/* ---------------- PRODUCTS ---------------- */
+products: () => `
+<div class="wrap">
+  <section class="hero" style="min-height:auto;padding-block:96px 48px">
+    <p class="eyebrow">Our products</p>
+    <h1>Products that <em>earn trust.</em></h1>
+    <p class="lede">Built in-house, patent-pending, and designed around a real human need: knowing what is true, and finding calm.</p>
+  </section>
+  <section style="padding-top:0">
+    <div class="grid g2">
+      <a class="glass prod-card tilt" href="/truthbubble/" style="min-height:420px"><span class="orb tb pop" style="width:160px;height:160px"></span><span class="tag">Flagship · AI · Patent-pending</span><h3>TruthBubble AI</h3><p class="muted" style="margin:0">An AI-assisted verification layer for claims, sources, and context. It helps people and teams check what they read before they act on it.</p><span class="go">Product details →</span></a>
+      <a class="glass prod-card tilt" href="/shivastras/" style="min-height:420px"><span class="orb sh pop" style="width:160px;height:160px"></span><span class="tag">Wearable · Concept · Patent-pending</span><h3>Shivastras</h3><p class="muted" style="margin:0">A screen-free wearable concept for meditation and conscious breathing. Guidance you feel, not a screen you stare at.</p><span class="go">Product details →</span></a>
+    </div>
+  </section>
+  <section>
+    <div class="glass card" style="padding:clamp(28px,5vw,48px)">
+      <p class="eyebrow">Partner with us</p>
+      <h2>Want this capability <em>for your product?</em></h2>
+      <p class="muted">The research, AI and hardware skills behind our products are available to partners through our services.</p>
+      <div class="btns" style="margin-top:8px"><a class="btn primary" href="/services/">Explore services ${arrow}</a><a class="btn" href="/contact/">Request a demo</a></div>
+    </div>
+  </section>
+</div>`,
+
+/* ---------------- TRUTHBUBBLE ---------------- */
+truthbubble: () => `
+<div class="wrap">
+  <section class="hero" style="min-height:auto;padding-block:80px 48px">
+    <a class="back" href="/products/">← All products</a>
+    <p class="eyebrow">Flagship product · AI</p>
+    <h1>TruthBubble <em>AI</em></h1>
+    <p class="lede">An AI-assisted verification layer for claims, sources, and context. Paste a claim, and TruthBubble traces it back to where it came from and shows how well it holds up.</p>
+    <div class="btns"><a class="btn primary" href="/contact/">Request early access ${arrow}</a><a class="btn" href="#tb-how">How it works</a></div>
+  </section>
+  <section style="padding-top:0" id="tb-how">
+    <p class="eyebrow">How it works</p>
+    <h2 style="margin-bottom:32px">From claim to context in four passes.</h2>
+    <div class="flow">
+      <div class="glass card tilt"><span class="k pop">Pass 1 · Extract</span><h3>Claims</h3><p>Breaks text into individual, checkable statements.</p></div>
+      <div class="glass card tilt"><span class="k pop">Pass 2 · Trace</span><h3>Sources</h3><p>Finds where each claim originated and who repeated it.</p></div>
+      <div class="glass card tilt"><span class="k pop">Pass 3 · Frame</span><h3>Context</h3><p>Adds the dates, quotes and data a headline left out.</p></div>
+      <div class="glass card tilt"><span class="k pop">Pass 4 · Score</span><h3>Confidence</h3><p>Shows how strongly the evidence supports the claim, with reasons.</p></div>
+    </div>
+  </section>
+  <section>
+    <div class="split">
+      <div>
+        <p class="eyebrow">Inside the bubble</p>
+        <h2>Shows its work, <em>every time.</em></h2>
+        <p class="lede">TruthBubble never returns a bare verdict. Each result lists the sources it weighed and why, so people can make their own call.</p>
+      </div>
+      <div class="glass demo">
+        <span class="example">Example result · illustrative</span>
+        <p class="claim" style="margin:0">“A new metro line will cut the commute between the two districts by half.”</p>
+        <div><div style="display:flex;justify-content:space-between;font-size:.88rem;margin-bottom:8px"><span class="muted">Evidence support</span><span class="warn" id="tbScore">Partly supported</span></div><div class="meter"><i id="tbMeter"></i></div></div>
+        <div>
+          <div class="src"><span>Official project report</span><span class="ok">● supports</span></div>
+          <div class="src"><span>Transit authority timetable draft</span><span class="ok">● supports</span></div>
+          <div class="src"><span>Independent traffic study</span><span class="warn">● adds context</span></div>
+          <div class="src"><span>Social post, no citation</span><span class="muted">○ unverified</span></div>
+        </div>
+        <button class="btn" id="tbRun" type="button" style="justify-self:start">Run verification again</button>
+      </div>
+    </div>
+  </section>
+  <section>
+    <p class="eyebrow">Who it's for</p>
+    <div class="grid g3">
+      <article class="glass card tilt"><span class="tag pop">Newsrooms</span><h3>Fact-check at speed</h3><p>Triage incoming claims and surface the ones that need a human editor.</p></article>
+      <article class="glass card tilt"><span class="tag pop">Enterprises</span><h3>Decide on evidence</h3><p>Check reports, vendor claims and market data before they reach the boardroom.</p></article>
+      <article class="glass card tilt"><span class="tag pop">Everyone</span><h3>Read with confidence</h3><p>Understand forwarded messages and viral posts before sharing them.</p></article>
+    </div>
+  </section>
+</div>`,
+
+/* ---------------- SHIVASTRAS ---------------- */
+shivastras: () => `
+<div class="wrap">
+  <section class="hero" style="min-height:auto;padding-block:80px 48px">
+    <a class="back" href="/products/">← All products</a>
+    <p class="eyebrow">Wearable concept · Wellbeing</p>
+    <h1>Shiva<em>stras</em></h1>
+    <p class="lede">A screen-free wearable concept for meditation and conscious breathing. It guides each breath with gentle pulses you feel, so your eyes can stay closed.</p>
+    <div class="btns"><a class="btn primary" href="/contact/">Join the pilot list ${arrow}</a><a class="btn" href="#sh-try">Try a breath</a></div>
+  </section>
+  <section style="padding-top:0" id="sh-try">
+    <div class="glass breath">
+      <div class="ring" id="ring"><div><b id="phase">Ready</b><small id="count">press start</small></div></div>
+      <div style="display:grid;gap:18px;justify-items:start">
+        <p class="eyebrow" style="margin:0">Breathe with the ring</p>
+        <h2 style="font-size:clamp(1.6rem,3vw,2.4rem)">This is the rhythm Shivastras pulses on your wrist.</h2>
+        <div class="seg" role="group" aria-label="Breathing pattern">
+          <button type="button" data-p="box" aria-pressed="true">Box 4·4·4·4</button>
+          <button type="button" data-p="calm" aria-pressed="false">Calm 4·7·8</button>
+          <button type="button" data-p="even" aria-pressed="false">Even 5·5</button>
+        </div>
+        <button class="btn primary" id="breathBtn" type="button">Start breathing</button>
+      </div>
+    </div>
+  </section>
+  <section>
+    <p class="eyebrow">Design principles</p>
+    <div class="grid g3">
+      <article class="glass card tilt"><span class="tag pop">Screen-free</span><h3>No display, no distraction</h3><p>Haptic and light cues replace notifications and charts.</p></article>
+      <article class="glass card tilt"><span class="tag pop">Rooted</span><h3>Inspired by pranayama</h3><p>Guided patterns draw on long-standing Indian breathing practice.</p></article>
+      <article class="glass card tilt"><span class="tag pop">Private</span><h3>Your practice stays yours</h3><p>Designed to work offline, with nothing to scroll and nothing to share.</p></article>
+    </div>
+  </section>
+  <section>
+    <p class="eyebrow">Concept specification</p>
+    <dl class="spec">
+      <div><dt>Form</dt><dd>Wrist or hand-held wearable</dd></div>
+      <div><dt>Guidance</dt><dd>Haptic pulses and soft light</dd></div>
+      <div><dt>Interface</dt><dd>Screen-free, single touch</dd></div>
+      <div><dt>Practices</dt><dd>Meditation and paced breathing</dd></div>
+      <div><dt>Status</dt><dd>Concept · patent-pending</dd></div>
+      <div><dt>Built by</dt><dd>Tabutech Labs hardware & research</dd></div>
+    </dl>
+  </section>
+</div>`,
+
+/* ---------------- SERVICES ---------------- */
+services: () => `
+<div class="wrap">
+  <section class="hero" style="min-height:auto;padding-block:96px 48px">
+    <p class="eyebrow">What we do</p>
+    <h1>The same lab, <em>for your product.</em></h1>
+    <p class="lede">Every capability we use to build our own products is available to partners, from early research through to tested, shipped software and hardware.</p>
+  </section>
+  <section style="padding-top:0"><div class="grid g4">${svc.map(svcCard).join("")}</div></section>
+  <section>
+    <p class="eyebrow">How an engagement runs</p>
+    <h2 style="margin-bottom:36px">Five stages, one accountable team.</h2>
+    <div class="steps">
+      <div class="step"><h3>Discover</h3><p>Market research and interviews define the problem and success.</p></div>
+      <div class="step"><h3>Prototype</h3><p>Clickable designs or hardware mock-ups validate ideas quickly.</p></div>
+      <div class="step"><h3>Build</h3><p>Short sprints with a working demo at the end of each one.</p></div>
+      <div class="step"><h3>Test</h3><p>Automated QA, load tests and security checks before release.</p></div>
+      <div class="step"><h3>Launch & grow</h3><p>Deployment, monitoring and iteration after go-live.</p></div>
+    </div>
+  </section>
+  <section>
+    <div class="glass card" style="padding:clamp(28px,5vw,48px)">
+      <h2>Tell us what you're <em>building.</em></h2>
+      <p class="muted">Share a short brief and we'll reply with an approach and a first milestone.</p>
+      <div class="btns" style="margin-top:8px"><a class="btn primary" href="/contact/">Get a proposal ${arrow}</a></div>
+    </div>
+  </section>
+</div>`,
+
+/* ---------------- TEAM ---------------- */
+team: () => `
+<div class="wrap">
+  <section class="hero" style="min-height:auto;padding-block:96px 48px">
+    <p class="eyebrow">Team</p>
+    <h1>The people <em>in the lab.</em></h1>
+    <p class="lede">Researchers, engineers and designers who share one horizon: technology that is still useful a hundred years from now.</p>
+  </section>
+  <section style="padding-top:0">
+    <div class="grid g3" id="teamGrid">
+      ${[["F","Founder & Director","Leadership & vision","Sets the lab's research agenda and product direction."],
+         ["AI","AI Research Lead","Applied AI","Leads the verification models behind TruthBubble AI."],
+         ["E","Engineering Lead","Software & SaaS","Owns architecture, platforms and delivery for partners."],
+         ["H","Hardware Lead","Devices & firmware","Builds the Shivastras prototypes and IoT integrations."],
+         ["D","Product Designer","Design & research","Turns research into interfaces people trust."],
+         ["Q","QA Lead","Quality & automation","Keeps every release tested, measured and safe."]]
+        .map(([i,r,t,d],n)=>`<article class="glass member tilt"><div class="face"><canvas data-seed="${n}"></canvas><span class="init pop">${i}</span></div><div class="info"><span class="tag">${t}</span><h3>${r}</h3><p>${d}</p></div></article>`).join("")}
+    </div>
+    <span class="placeholder-note">Team profiles are placeholders · add names and photos</span>
+  </section>
+  <section id="team-careers">
+    <div class="split" style="align-items:start">
+      <div><p class="eyebrow">Careers</p><h2>Build the <em>next 100 years</em> with us.</h2><p class="lede">We hire curious people who like hard problems. Send your work, not just your CV.</p><div class="btns"><a class="btn primary" href="/contact/">Apply via contact ${arrow}</a></div></div>
+      <div class="roles">
+        <div class="role"><h3>AI / ML Engineer</h3><span>Research · Full-time</span></div>
+        <div class="role"><h3>Full-stack Developer</h3><span>Engineering · Full-time</span></div>
+        <div class="role"><h3>Embedded Systems Engineer</h3><span>Hardware · Full-time</span></div>
+        <div class="role"><h3>Research Intern</h3><span>Research · Internship</span></div>
+      </div>
+    </div>
+  </section>
+</div>`,
+
+/* ---------------- CONTACT ---------------- */
+contact: () => `
+<div class="wrap">
+  <section class="hero" style="min-height:auto;padding-block:96px 48px">
+    <p class="eyebrow">Contact us</p>
+    <h1>Let's build <em>something lasting.</em></h1>
+    <p class="lede">Questions, partnerships, early access or careers. Reach the team on whichever channel suits you.</p>
+  </section>
+  <section style="padding-top:0">
+    <div class="split" style="align-items:start">
+      <div style="display:grid;gap:22px;min-width:0">
+        <div class="channels">
+          <div class="glass chan tilt"><span class="tag">Email</span><span class="val">${EMAIL}</span><div class="row"><button class="chip" data-copy="${EMAIL}">Copy</button><a class="chip" href="mailto:${EMAIL}">Open mail</a></div></div>
+          <div class="glass chan tilt"><span class="tag">Call · SMS</span><span class="val">${PHONE}</span><div class="row"><button class="chip" data-copy="${PHONE_RAW}">Copy</button><a class="chip" href="tel:${PHONE_RAW}">Call</a><a class="chip" href="sms:${PHONE_RAW}">SMS</a></div></div>
+          <div class="glass chan tilt"><span class="tag">WhatsApp</span><span class="val">Start a chat</span><div class="row"><a class="chip" href="https://wa.me/919971861492" target="_blank" rel="noopener">Open WhatsApp ↗</a></div></div>
+          <div class="glass chan tilt"><span class="tag">LinkedIn</span><span class="val">Company profile</span><div class="row"><a class="chip" href="https://www.linkedin.com/company/tabutechlabs/" target="_blank" rel="noopener">Visit ↗</a></div></div>
+        </div>
+        <div><p class="eyebrow">Community</p><div class="social">
+          <a class="chip" href="https://www.instagram.com/tabutechlabs/" target="_blank" rel="noopener">Instagram ↗</a>
+          <a class="chip" href="https://www.facebook.com/profile.php?id=61593670460335" target="_blank" rel="noopener">Facebook ↗</a>
+          <a class="chip" href="https://www.reddit.com/user/Tabutechlabs/" target="_blank" rel="noopener">Reddit ↗</a>
+        </div></div>
+      </div>
+      <form class="glass" id="cform" novalidate>
+        <h3 style="font-family:var(--display);font-weight:300;font-size:1.8rem">Write your brief</h3>
+        <div class="two"><label for="cname">Name<input id="cname" required autocomplete="name"></label><label for="cmail">Email<input id="cmail" type="email" required autocomplete="email"></label></div>
+        <label for="cphone">Phone (optional)<input id="cphone" type="tel" autocomplete="tel"></label>
+        <label for="ctopic">Topic<select id="ctopic"><option>New project</option><option>TruthBubble AI early access</option><option>Shivastras pilot</option><option>Partnership</option><option>Careers</option><option>Something else</option></select></label>
+        <label for="cmsg">Message<textarea id="cmsg" required placeholder="What are you building, and by when?"></textarea></label>
+        <p class="muted" id="cerr" style="margin:0;font-size:.88rem" hidden></p>
+        <input type="text" id="choney" name="_honey" tabindex="-1" autocomplete="off" aria-hidden="true" style="position:absolute;left:-9999px;width:1px;height:1px;opacity:0">
+        <button class="btn primary" type="submit" id="csend" style="justify-self:start">Send enquiry ${arrow}</button>
+        <div id="cok" class="draft" hidden role="status"></div>
+        <div id="cout" hidden style="display:grid;gap:12px"><p class="muted" style="margin:0;font-size:.9rem">We couldn't send your enquiry just now. Your message is below. Send it by WhatsApp or email instead.</p><div class="draft" id="cdraft"></div><div class="row" style="display:flex;gap:8px;flex-wrap:wrap"><button type="button" class="chip" id="ccopy">Copy message</button><a class="chip" id="cwa" target="_blank" rel="noopener">Send via WhatsApp ↗</a><a class="chip" id="cmailto">Send via email</a></div></div>
+      </form>
+    </div>
+  </section>
+</div>`
+};
+
+/* ---------------- router ---------------- */
+const app = document.getElementById("app");
+const sceneOf = {home:"origin",about:"helix",products:"pair",truthbubble:"bubble",shivastras:"breath",services:"lattice",team:"constellation",contact:"wave"};
+const navOf = {truthbubble:"products",shivastras:"products"};
+let current = null;
+const TITLES={home:"Tabutech Labs",about:"About · Tabutech Labs",products:"Products · Tabutech Labs",truthbubble:"TruthBubble AI · Tabutech Labs",shivastras:"Shivastras · Tabutech Labs",services:"Services · Tabutech Labs",team:"Team · Tabutech Labs",contact:"Contact · Tabutech Labs"};
+const pageOfHref=href=>{const p=href.split("#")[0].replace(/\/+$/,"").split("/").pop();return pages[p]?p:"home";};
+// old links like tabutechlabs.com/#about move to /about/
+function route(){
+  {const o=location.hash.slice(1);if(pages[o]){history.replaceState(null,"",o==="home"?"/":"/"+o+"/");}}
+  const h=pageOfHref(location.pathname);
+  const anchor=location.hash.slice(1)||null;
+  if(h!==current){
+    current=h; stopBreath();
+    app.innerHTML=`<div class="page">${pages[h]()}</div>`;
+    if(!anchor) window.scrollTo({top:0,behavior:"instant"});
+    bindPage(h);
+    window.setScene && window.setScene(sceneOf[h]);
+    document.getElementById("sceneLabel").textContent="scene · "+sceneOf[h];
+    document.title=TITLES[h];
+  }
+  if(anchor){const el=document.getElementById(anchor); el && setTimeout(()=>el.scrollIntoView({behavior:"smooth"}),50);}
+  document.querySelectorAll("nav a").forEach(a=>{ if(pageOfHref(a.getAttribute("href"))===(navOf[h]||h)) a.setAttribute("aria-current","page"); else a.removeAttribute("aria-current"); });
+  nav.classList.remove("open"); burger.setAttribute("aria-expanded","false");
+}
+const nav=document.getElementById("nav"), burger=document.getElementById("burger");
+burger.addEventListener("click",()=>{const o=nav.classList.toggle("open");burger.setAttribute("aria-expanded",o)});
+window.addEventListener("popstate",route);
+window.addEventListener("hashchange",route);
+
+/* internal page links: switch page without a reload, keep clean URLs */
+document.addEventListener("click",e=>{
+  const a=e.target.closest('a[href^="/"]'); if(!a||a.target||e.metaKey||e.ctrlKey||e.shiftKey) return;
+  e.preventDefault();
+  const url=new URL(a.href);
+  if(url.pathname!==location.pathname||url.hash!==location.hash){history.pushState(null,"",url.pathname+url.hash);}
+  route();
+});
+
+/* in-page links that point at a section on the same page */
+document.addEventListener("click",e=>{
+  const a=e.target.closest('a[href^="#"]'); if(!a) return;
+  const id=a.getAttribute("href").slice(1);
+  if(document.getElementById(id)){e.preventDefault();document.getElementById(id).scrollIntoView({behavior:"smooth"});}
+});
+
+/* toast + copy */
+function toast(t){const d=document.createElement("div");d.className="toast";d.textContent=t;document.body.appendChild(d);setTimeout(()=>d.remove(),1800)}
+async function copy(text,el){try{await navigator.clipboard.writeText(text);toast("Copied")}catch(_){if(el){const r=document.createRange();r.selectNodeContents(el);const s=getSelection();s.removeAllRanges();s.addRange(r);}toast("Selected · press Ctrl/Cmd+C")}}
+document.addEventListener("click",e=>{const b=e.target.closest("[data-copy]");if(b)copy(b.dataset.copy,b.closest(".chan")?.querySelector(".val"))});
+
+/* 3D tilt */
+const reduce = matchMedia("(prefers-reduced-motion: reduce)").matches;
+function bindTilt(root){
+  if(reduce || matchMedia("(hover:none)").matches) return;
+  root.querySelectorAll(".tilt").forEach(el=>{
+    el.addEventListener("pointermove",e=>{const r=el.getBoundingClientRect();const x=(e.clientX-r.left)/r.width-.5,y=(e.clientY-r.top)/r.height-.5;el.style.transform=`perspective(900px) rotateY(${x*10}deg) rotateX(${-y*10}deg) translateZ(0)`;});
+    el.addEventListener("pointerleave",()=>{el.style.transform=""});
+  });
+}
+
+/* breathing */
+let breathTimer=null, breathOn=false, pattern="box";
+const patterns={box:[["Breathe in",4,1],["Hold",4,1],["Breathe out",4,.7],["Hold",4,.7]],calm:[["Breathe in",4,1],["Hold",7,1],["Breathe out",8,.7]],even:[["Breathe in",5,1],["Breathe out",5,.7]]};
+function stopBreath(){breathOn=false;clearTimeout(breathTimer);clearInterval(window._cnt);window.breathTarget=null;}
+function runBreath(i=0){
+  if(!breathOn) return;
+  const ring=document.getElementById("ring"); if(!ring) return stopBreath();
+  const seq=patterns[pattern]; const [label,secs,scale]=seq[i%seq.length];
+  ring.style.setProperty("--d",secs+"s"); ring.style.setProperty("--s",scale);
+  window.breathTarget = scale;
+  document.getElementById("phase").textContent=label;
+  let left=secs; const c=document.getElementById("count"); c.textContent=left+"s";
+  clearInterval(window._cnt); window._cnt=setInterval(()=>{left--; if(left>0) c.textContent=left+"s";},1000);
+  breathTimer=setTimeout(()=>runBreath(i+1),secs*1000);
+}
+
+function bindPage(h){
+  bindTilt(app);
+  if(h==="truthbubble"){
+    const m=document.getElementById("tbMeter");
+    document.getElementById("tbRun").addEventListener("click",()=>{m.style.width="4%";setTimeout(()=>m.style.width="62%",350)});
+  }
+  if(h==="shivastras"){
+    const btn=document.getElementById("breathBtn");
+    btn.addEventListener("click",()=>{ if(breathOn){stopBreath();btn.textContent="Start breathing";document.getElementById("phase").textContent="Ready";document.getElementById("count").textContent="press start";document.getElementById("ring").style.setProperty("--s",.7);} else {breathOn=true;btn.textContent="Stop";runBreath();} });
+    document.querySelectorAll(".seg button").forEach(b=>b.addEventListener("click",()=>{document.querySelectorAll(".seg button").forEach(x=>x.setAttribute("aria-pressed",x===b));pattern=b.dataset.p; if(breathOn){clearTimeout(breathTimer);runBreath();}}));
+  }
+  if(h==="about"){
+    const bars=[...document.querySelectorAll("#century i")]; let k=1;
+    if(!reduce){const t=setInterval(()=>{if(!document.getElementById("century")||k>=bars.length){clearInterval(t);return;} bars[k].classList.add("on");k++;},140);}
+    else bars.forEach(b=>b.classList.add("on"));
+  }
+  if(h==="team"){
+    document.querySelectorAll(".face canvas").forEach(cv=>{
+      const w=cv.width=400,ht=cv.height=300,x=cv.getContext("2d"),s=+cv.dataset.seed;
+      let r=s*9301+49297; const rnd=()=>((r=(r*9301+49297)%233280)/233280);
+      const pts=Array.from({length:34},()=>[rnd()*w,rnd()*ht]);
+      x.strokeStyle="rgba(95,211,194,.22)";x.lineWidth=1;
+      pts.forEach((p,i)=>pts.slice(i+1).forEach(q=>{if(Math.hypot(p[0]-q[0],p[1]-q[1])<85){x.beginPath();x.moveTo(...p);x.lineTo(...q);x.stroke();}}));
+      pts.forEach((p,i)=>{x.fillStyle=i%5?"rgba(232,239,233,.55)":"#f2a541";x.beginPath();x.arc(p[0],p[1],i%5?1.6:2.6,0,7);x.fill();});
+    });
+  }
+  if(h==="contact"){
+    const f=document.getElementById("cform");
+    f.addEventListener("submit",async e=>{
+      e.preventDefault();
+      const n=cname.value.trim(),m=cmail.value.trim(),ph=cphone.value.trim(),t=ctopic.value,msg=cmsg.value.trim(),err=document.getElementById("cerr");
+      const ok=document.getElementById("cok"),out=document.getElementById("cout"),btn=document.getElementById("csend");
+      if(!n||!/^\S+@\S+\.\S+$/.test(m)||!msg){err.hidden=false;err.textContent="Add your name, a valid email and a short message, then try again.";return;}
+      err.hidden=true; ok.hidden=true; out.hidden=true;
+      if(choney.value){ok.hidden=false;ok.textContent="Thank you. Your enquiry has been received.";return;}
+      btn.disabled=true; btn.textContent="Sending…";
+      try{
+        const r=await fetch(FORM_ENDPOINT,{method:"POST",headers:{"Content-Type":"application/json",Accept:"application/json"},
+          body:JSON.stringify({name:n,email:m,phone:ph||"Not given",topic:t,message:msg,page:location.href,
+            _subject:`New website enquiry: ${t} from ${n}`,_replyto:m,_template:"table",_captcha:"false"})});
+        const j=await r.json().catch(()=>({}));
+        if(!r.ok||j.success===false||j.success==="false") throw new Error(j.message||"failed");
+        f.reset(); ok.hidden=false;
+        ok.textContent=`Thank you, ${n}. Your enquiry has been sent. We'll reply to ${m} soon.`;
+        toast("Enquiry sent");
+      }catch(_){
+        const body=`Hello Tabutech Labs,\n\nTopic: ${t}\n\n${msg}\n\n— ${n} (${m}${ph?", "+ph:""})`;
+        document.getElementById("cdraft").textContent=body;
+        document.getElementById("cwa").href="https://wa.me/919971861492?text="+encodeURIComponent(body);
+        document.getElementById("cmailto").href=`mailto:${EMAIL}?subject=${encodeURIComponent(t)}&body=${encodeURIComponent(body)}`;
+        out.hidden=false;
+      }finally{btn.disabled=false;btn.innerHTML="Send enquiry "+arrow;}
+    });
+    document.getElementById("ccopy").addEventListener("click",()=>copy(document.getElementById("cdraft").textContent,document.getElementById("cdraft")));
+  }
+}
+
+/* ---------------- WebGL particle field ---------------- */
+(function(){
+  if(!window.THREE){return;}
+  const N = innerWidth<700 ? 3200 : 6000;
+  const canvas=document.getElementById("gl");
+  const renderer=new THREE.WebGLRenderer({canvas,antialias:true,alpha:false});
+  renderer.setPixelRatio(Math.min(devicePixelRatio,2));
+  renderer.setClearColor(0x050b0c,1);
+  const scene=new THREE.Scene(); scene.fog=new THREE.FogExp2(0x050b0c,.06);
+  const cam=new THREE.PerspectiveCamera(55,1,.1,100); cam.position.set(0,0,8);
+
+  const pos=new Float32Array(N*3), col=new Float32Array(N*3), tgt=new Float32Array(N*3);
+  const cA=new THREE.Color("#5fd3c2"), cB=new THREE.Color("#f2a541"), cC=new THREE.Color("#e8efe9");
+  for(let i=0;i<N;i++){pos[i*3]=(Math.random()-.5)*30;pos[i*3+1]=(Math.random()-.5)*30;pos[i*3+2]=(Math.random()-.5)*30;
+    const c=Math.random()<.12?cB:(Math.random()<.5?cA:cC); col[i*3]=c.r;col[i*3+1]=c.g;col[i*3+2]=c.b;}
+  const g=new THREE.BufferGeometry();
+  g.setAttribute("position",new THREE.BufferAttribute(pos,3));
+  g.setAttribute("color",new THREE.BufferAttribute(col,3));
+  const dot=document.createElement("canvas");dot.width=dot.height=64;const dx=dot.getContext("2d");
+  const grd=dx.createRadialGradient(32,32,0,32,32,32);grd.addColorStop(0,"rgba(255,255,255,1)");grd.addColorStop(.25,"rgba(255,255,255,.8)");grd.addColorStop(1,"rgba(255,255,255,0)");dx.fillStyle=grd;dx.fillRect(0,0,64,64);
+  const mat=new THREE.PointsMaterial({size:.06,map:new THREE.CanvasTexture(dot),vertexColors:true,transparent:true,depthWrite:false,blending:THREE.AdditiveBlending,opacity:.9});
+  const pts=new THREE.Points(g,mat); const group=new THREE.Group(); group.add(pts); scene.add(group);
+
+  // ambient dust
+  const dg=new THREE.BufferGeometry(),dp=new Float32Array(900*3);for(let i=0;i<dp.length;i++)dp[i]=(Math.random()-.5)*40;
+  dg.setAttribute("position",new THREE.BufferAttribute(dp,3));
+  const dust=new THREE.Points(dg,new THREE.PointsMaterial({size:.03,color:0x93a8a3,transparent:true,opacity:.5,depthWrite:false}));scene.add(dust);
+
+  const TAU=Math.PI*2, R=()=>Math.random();
+  const shapes={
+    origin:i=>{const k=i+.5,phi=Math.acos(1-2*k/N),th=Math.PI*(1+Math.sqrt(5))*k;const r=2.5+(i%7===0?R()*.6:0);return[r*Math.cos(th)*Math.sin(phi),r*Math.sin(th)*Math.sin(phi),r*Math.cos(phi)]},
+    helix:i=>{const t=i/N, a=t*TAU*6, s=i%2?Math.PI:0, y=(t-.5)*8; if(i%9===0){const u=R();return[Math.cos(a)*1.4*(1-2*u),y,Math.sin(a)*1.4*(1-2*u)];} return[Math.cos(a+s)*1.4+(R()-.5)*.12,y,Math.sin(a+s)*1.4+(R()-.5)*.12]},
+    pair:i=>{const left=i%2===0; if(left){const u=R()*TAU,v=Math.acos(2*R()-1);return[-2.3+1.6*Math.sin(v)*Math.cos(u),1.6*Math.sin(v)*Math.sin(u),1.6*Math.cos(v)]} const u=R()*TAU,v=R()*TAU;return[2.3+(1.3+.35*Math.cos(v))*Math.cos(u),(1.3+.35*Math.cos(v))*Math.sin(u),.35*Math.sin(v)]},
+    bubble:i=>{if(i<N*.72){const u=R()*TAU,v=Math.acos(2*R()-1),r=2.8;return[r*Math.sin(v)*Math.cos(u),r*Math.sin(v)*Math.sin(u),r*Math.cos(v)]} const c=[[0,0,0],[1,.6,.3],[-.9,-.4,.5],[.3,-1,-.6],[-.5,.9,-.4]][i%5];const u=R()*TAU,v=Math.acos(2*R()-1),r=.32;return[c[0]+r*Math.sin(v)*Math.cos(u),c[1]+r*Math.sin(v)*Math.sin(u),c[2]+r*Math.cos(v)]},
+    breath:i=>{const u=R()*TAU,v=R()*TAU,Rr=2.4,r=.45+R()*.08;return[(Rr+r*Math.cos(v))*Math.cos(u),(Rr+r*Math.cos(v))*Math.sin(u),r*Math.sin(v)]},
+    lattice:i=>{const n=Math.round(Math.cbrt(N)),x=i%n,y=Math.floor(i/n)%n,z=Math.floor(i/n/n)%n,s=4.2/n;return[(x-n/2)*s,(y-n/2)*s,(z-n/2)*s]},
+    constellation:i=>{const hubs=[[-2.6,1.2,0],[2.4,1.4,-.5],[0,-1.6,.6],[-1.2,-.4,-1.8],[1.4,-.2,1.6],[0,2,1.2]];const h=hubs[i%6];const d=Math.pow(R(),2.2)*1.3,u=R()*TAU,v=Math.acos(2*R()-1);return[h[0]+d*Math.sin(v)*Math.cos(u),h[1]+d*Math.sin(v)*Math.sin(u),h[2]+d*Math.cos(v)]},
+    wave:i=>{const n=Math.round(Math.sqrt(N)),x=(i%n)/n-.5,z=Math.floor(i/n)/n-.5;return[x*12,-1.4,z*12]}
+  };
+  let sceneName="origin", morph=0;
+  window.setScene=name=>{sceneName=name;const f=shapes[name]||shapes.origin;for(let i=0;i<N;i++){const p=f(i);tgt[i*3]=p[0];tgt[i*3+1]=p[1];tgt[i*3+2]=p[2];}morph=1;
+    if(reduce){pos.set(tgt);g.attributes.position.needsUpdate=true;}};
+  window.setScene(sceneOf[current]||"origin");
+
+  let mx=0,my=0,sy=0; addEventListener("pointermove",e=>{mx=e.clientX/innerWidth-.5;my=e.clientY/innerHeight-.5});
+  addEventListener("scroll",()=>{sy=scrollY},{passive:true});
+  function size(){renderer.setSize(innerWidth,innerHeight,false);cam.aspect=innerWidth/innerHeight;cam.updateProjectionMatrix();
+    group.position.x = innerWidth>980 ? 2.6 : 0; group.scale.setScalar(innerWidth<640?.72:1);}
+  addEventListener("resize",size); size();
+  let breathScale=1, t0=performance.now();
+  function frame(now){
+    const t=(now-t0)/1000;
+    if(morph>0){const k=reduce?1:.045;for(let i=0;i<N*3;i++)pos[i]+=(tgt[i]-pos[i])*k;g.attributes.position.needsUpdate=true;morph-=.004;}
+    if(sceneName==="wave"&&!reduce){for(let i=0;i<N;i++){const x=pos[i*3],z=pos[i*3+2];tgt[i*3+1]=-1.4+Math.sin(x*.8+t*1.4)*.35+Math.cos(z*.7+t)*.35;}morph=1;}
+    const rs=reduce?0:1;
+    group.rotation.y += .0016*rs;
+    group.rotation.x += ((my*.4 + (sceneName==="wave"?.35:0)) - group.rotation.x)*.04;
+    if(sceneName==="breath"){
+      const target = window.breathTarget!=null ? (window.breathTarget===1?1.18:.82) : 1+Math.sin(t*.8)*.08*rs;
+      breathScale += (target-breathScale)*.02; pts.scale.setScalar(breathScale);
+      group.rotation.x += (1.0-group.rotation.x)*.03;
+    } else { breathScale += (1-breathScale)*.05; pts.scale.setScalar(breathScale); }
+    cam.position.x += (mx*1.2-cam.position.x)*.05; cam.position.y += (-my*.8 - sy*.0012 - cam.position.y)*.05; cam.lookAt(0,-sy*.0012,0);
+    dust.rotation.y = t*.01*rs;
+    renderer.render(scene,cam);
+    requestAnimationFrame(frame);
+  }
+  requestAnimationFrame(frame);
+})();
+
+
+route();
+</script>
+
+</body>
+</html>
