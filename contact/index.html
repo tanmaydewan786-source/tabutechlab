@@ -253,6 +253,13 @@ footer{position:relative;z-index:2;border-top:1px solid var(--line);background:r
 .no-gl .gl-fallback{display:block}
 .no-gl #gl{display:none}
 @media (max-width:980px){.gl-fallback{right:-20%;width:90vw;opacity:.7}}
+
+/* lite mode: browsers without graphics acceleration */
+.lite .glass,.lite header{backdrop-filter:none;-webkit-backdrop-filter:none}
+.lite .glass{background:rgba(12,24,27,.88)}
+.lite header{background:rgba(5,11,12,.94)}
+.lite .vignette{display:none}
+.lite .tilt{will-change:auto}
 </style>
 </head>
 <body>
@@ -789,7 +796,7 @@ function bindPage(h){
 /* ---------------- WebGL particle field ---------------- */
 function initGL(){ if(window._fx) return; try{
   if(!window.THREE) throw new Error("3D library missing");
-  const t=document.createElement("canvas"); if(!(t.getContext("webgl")||t.getContext("experimental-webgl"))) throw new Error("WebGL unavailable");
+  const t=document.createElement("canvas"); if(!(t.getContext("webgl",{failIfMajorPerformanceCaveat:true})||t.getContext("experimental-webgl",{failIfMajorPerformanceCaveat:true}))) throw new Error("no hardware-accelerated WebGL");
   const N = innerWidth<700 ? 3200 : 6000;
   const canvas=document.getElementById("gl");
   const renderer=new THREE.WebGLRenderer({canvas,antialias:true,alpha:false});
@@ -862,11 +869,11 @@ function initGL(){ if(window._fx) return; try{
    Runs automatically when a browser can't use WebGL, so every visitor sees the 3D effect. */
 function start2D(){
   if(window._fx) return; window._fx="2d";
-  document.documentElement.classList.remove("no-gl");
+  document.documentElement.classList.remove("no-gl"); document.documentElement.classList.add("lite");
   const old=document.getElementById("gl"), cv=document.createElement("canvas");
   cv.id="gl"; cv.setAttribute("aria-hidden","true"); old.replaceWith(cv);
   const ctx=cv.getContext("2d"); if(!ctx){document.documentElement.classList.add("no-gl");return;}
-  const N = innerWidth<700 ? 1600 : 3000, TAU=Math.PI*2, R=Math.random;
+  const N = innerWidth<700 ? 700 : 1400, TAU=Math.PI*2, R=Math.random;
   const pos=new Float32Array(N*3), tgt=new Float32Array(N*3), col=new Uint8Array(N);
   for(let i=0;i<N;i++){pos[i*3]=(R()-.5)*20;pos[i*3+1]=(R()-.5)*20;pos[i*3+2]=(R()-.5)*20;col[i]=R()<.12?1:(R()<.5?0:2);}
   const COLORS=["#5fd3c2","#f2a541","#e8efe9"];
@@ -884,16 +891,21 @@ function start2D(){
   window.setScene=name=>{sceneName=name;const f=shapes[name]||shapes.origin;for(let i=0;i<N;i++){const p=f(i);tgt[i*3]=p[0];tgt[i*3+1]=p[1];tgt[i*3+2]=p[2];} if(reduce)pos.set(tgt);};
   window.setScene(sceneOf[current]||"origin");
   // background dust
-  const D=260, dust=new Float32Array(D*3); for(let i=0;i<D*3;i++)dust[i]=(R()-.5)*30;
+  const D=90, dust=new Float32Array(D*3); for(let i=0;i<D*3;i++)dust[i]=(R()-.5)*30;
   let W=0,H=0,dpr=1,F=1,offX=0,scl=1;
-  function size(){dpr=Math.min(devicePixelRatio||1,1.5);W=innerWidth;H=innerHeight;cv.width=W*dpr;cv.height=H*dpr;cv.style.width=W+"px";cv.style.height=H+"px";
+  function size(){dpr=1;W=innerWidth;H=innerHeight;cv.width=W*dpr;cv.height=H*dpr;cv.style.width=W+"px";cv.style.height=H+"px";
     F=(H/2)/Math.tan(27.5*Math.PI/180); offX=W>980?2.6:0; scl=W<640?.72:1;}
   addEventListener("resize",size); size();
   let mx=0,my=0,sy=0,ry=0,rx=0,camX=0,camY=0,breathScale=1,t0=performance.now();
   addEventListener("pointermove",e=>{mx=e.clientX/innerWidth-.5;my=e.clientY/innerHeight-.5});
   addEventListener("scroll",()=>{sy=scrollY},{passive:true});
   const buckets=[[],[],[]];
+  let last=0, avg=16, stride=1, slow=0;
   function frame(now){
+    requestAnimationFrame(frame);
+    if(now-last<32) return;               /* ~30 fps is plenty and halves the work */
+    const dt=now-last; last=now; avg=avg*.9+Math.min(dt,200)*.1;
+    if(avg>45 && ++slow>40 && stride<4){stride*=2; slow=0;}   /* still slow: draw fewer dots */
     const t=(now-t0)/1000, rs=reduce?0:1;
     for(let i=0;i<N*3;i++)pos[i]+=(tgt[i]-pos[i])*.045;
     if(sceneName==="wave"&&rs){for(let i=0;i<N;i++){const x=pos[i*3],z=pos[i*3+2];tgt[i*3+1]=-1.4+Math.sin(x*.8+t*1.4)*.35+Math.cos(z*.7+t)*.35;}}
@@ -906,7 +918,7 @@ function start2D(){
     const cy=Math.cos(ry),sy_=Math.sin(ry),cx=Math.cos(rx),sx=Math.sin(rx);
     ctx.setTransform(dpr,0,0,dpr,0,0);
     ctx.globalCompositeOperation="source-over";ctx.fillStyle="#050b0c";ctx.fillRect(0,0,W,H);
-    ctx.globalCompositeOperation="lighter";
+    const t1=performance.now();
     const lookY=-sy*.0012;
     // dust
     ctx.fillStyle="#93a8a3";
@@ -915,7 +927,7 @@ function start2D(){
       ctx.globalAlpha=.35*Math.exp(-Math.pow(.06*dz,2)); const s=Math.max(.6,.03*F/dz); ctx.fillRect(px,py,s,s);}
     buckets[0].length=buckets[1].length=buckets[2].length=0;
     const k=scl*breathScale;
-    for(let i=0;i<N;i++){
+    for(let i=0;i<N;i+=stride){
       let x=pos[i*3]*k,y=pos[i*3+1]*k,z=pos[i*3+2]*k;
       let x1=x*cy+z*sy_, z1=-x*sy_+z*cy;           // rotate Y
       let y2=y*cx-z1*sx, z2=y*sx+z1*cx;            // rotate X
@@ -924,10 +936,10 @@ function start2D(){
       if(px<-10||px>W+10||py<-10||py>H+10)continue;
       buckets[col[i]].push(px,py,dz);
     }
+    const fade=Math.max(.35,1-sy/900);   /* dim behind text as you scroll */
     for(let c=0;c<3;c++){ctx.fillStyle=COLORS[c];const b=buckets[c];
-      for(let j=0;j<b.length;j+=3){const dz=b[j+2],s=Math.max(.8,.04*F/dz);ctx.globalAlpha=.85*Math.exp(-Math.pow(.06*dz,2));ctx.beginPath();ctx.arc(b[j],b[j+1],s*.5,0,TAU);ctx.fill();}}
+      for(let j=0;j<b.length;j+=3){const dz=b[j+2],s=Math.max(1.2,.045*F/dz);ctx.globalAlpha=fade*.9*Math.exp(-Math.pow(.06*dz,2));ctx.fillRect(b[j]-s/2,b[j+1]-s/2,s,s);}}
     ctx.globalAlpha=1;
-    requestAnimationFrame(frame);
   }
   requestAnimationFrame(frame);
 }
