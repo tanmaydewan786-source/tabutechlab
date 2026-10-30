@@ -14,6 +14,7 @@
 <title>Services · Tabutech Labs</title>
 <link rel="canonical" href="https://tabutechlabs.com/services/">
 
+<link rel="preload" href="/assets/three.min.js" as="script">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,500;1,9..144,300;1,9..144,500&family=Figtree:wght@400;500;600&family=JetBrains+Mono:wght@400;500&family=Tiro+Devanagari+Hindi&display=swap">
@@ -243,12 +244,22 @@ footer{position:relative;z-index:2;border-top:1px solid var(--line);background:r
 .wa-fab::after{content:"";position:absolute;inset:-6px;border-radius:999px;border:2px solid #25d366;opacity:0;animation:waPulse 2.6s ease-out infinite}
 @keyframes waPulse{0%{opacity:.7;transform:scale(.9)}100%{opacity:0;transform:scale(1.25)}}
 @media (max-width:560px){.wa-fab .wa-txt{display:none}.wa-fab{padding:15px}}
+
+/* fallback when 3D can't run: soft animated orb */
+.gl-fallback{display:none;position:fixed;z-index:0;top:50%;right:8%;width:min(46vw,560px);aspect-ratio:1;max-width:100%;transform:translateY(-50%);border-radius:50%;pointer-events:none;
+  background:radial-gradient(circle at 35% 30%,rgba(232,239,233,.18),transparent 40%),radial-gradient(circle at 60% 65%,rgba(242,165,65,.22),transparent 55%),radial-gradient(circle,rgba(95,211,194,.25),rgba(95,211,194,.05) 60%,transparent 70%);
+  filter:blur(2px);animation:fbFloat 9s ease-in-out infinite}
+@keyframes fbFloat{50%{transform:translateY(-54%) scale(1.04)}}
+.no-gl .gl-fallback{display:block}
+.no-gl #gl{display:none}
+@media (max-width:980px){.gl-fallback{right:-20%;width:90vw;opacity:.7}}
 </style>
 </head>
 <body>
 
 
 <canvas id="gl" aria-hidden="true"></canvas>
+<div class="gl-fallback" aria-hidden="true"></div>
 <div class="vignette"></div>
 
 <header>
@@ -259,7 +270,7 @@ footer{position:relative;z-index:2;border-top:1px solid var(--line);background:r
         <li><a href="/">Home</a></li>
         <li><a href="/about/">About</a></li>
         <li><a href="/products/">Products</a></li>
-        <li><a href="/services/">Services</a></li>
+        <li><a href="/services/" aria-current="page">Services</a></li>
         <li><a href="/team/">Team</a></li>
         <li><a href="/contact/">Contact</a></li>
       </ul>
@@ -299,7 +310,6 @@ footer{position:relative;z-index:2;border-top:1px solid var(--line);background:r
   <svg viewBox="0 0 24 24" aria-hidden="true"><path fill="#06331b" d="M12 2.5a9.5 9.5 0 0 0-8.2 14.3L2.5 21.5l4.8-1.3A9.5 9.5 0 1 0 12 2.5z"/><path fill="#25d366" d="M9.1 7.3c.2 0 .4 0 .6.4l.8 1.9c.1.2.1.4 0 .6l-.5.7c-.1.2-.2.3 0 .6.5.9 1.3 1.8 2.3 2.4.3.2.5.1.6 0l.7-.8c.2-.2.4-.2.6-.1l1.8.9c.3.1.4.2.4.4 0 .6-.3 1.4-1 1.8-.7.4-1.6.5-3-.1-1.8-.8-3.4-2.3-4.3-4-.6-1.2-.6-2.3 0-3.1.3-.4.6-.6 1-.6z"/></svg>
   <span class="wa-txt">Chat with us</span>
 </a>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
 <script>
 /* Contact form delivery: enquiries are emailed to this inbox via FormSubmit.
    After activating, you can replace the email with the random alias FormSubmit gives you. */
@@ -777,8 +787,9 @@ function bindPage(h){
 }
 
 /* ---------------- WebGL particle field ---------------- */
-(function(){
-  if(!window.THREE){return;}
+function initGL(){ try{
+  if(!window.THREE) throw new Error("3D library missing");
+  const t=document.createElement("canvas"); if(!(t.getContext("webgl")||t.getContext("experimental-webgl"))) throw new Error("WebGL unavailable");
   const N = innerWidth<700 ? 3200 : 6000;
   const canvas=document.getElementById("gl");
   const renderer=new THREE.WebGLRenderer({canvas,antialias:true,alpha:false});
@@ -844,10 +855,16 @@ function bindPage(h){
     requestAnimationFrame(frame);
   }
   requestAnimationFrame(frame);
-})();
+  }catch(err){ document.documentElement.classList.add("no-gl"); console.warn("3D background off:",err.message); }
+}
 
 
 route();
+/* load the 3D library after the page is visible (self-hosted, no outside CDN) */
+(function(){const sc=document.createElement("script");sc.src="/assets/three.min.js";sc.async=true;
+  sc.onload=()=>{document.documentElement.classList.remove("no-gl");initGL();}; sc.onerror=()=>document.documentElement.classList.add("no-gl");
+  document.head.appendChild(sc);
+  setTimeout(()=>{if(!window.THREE)document.documentElement.classList.add("no-gl")},6000);})();
 </script>
 
 </body>

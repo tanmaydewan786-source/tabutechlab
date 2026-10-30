@@ -26,3 +26,7 @@ Enquiries are delivered to tabutechlabs@gmail.com through FormSubmit (formsubmit
 ## WhatsApp button
 A floating WhatsApp button (bottom-right, every page) links to https://wa.me/919971861492.
 It opens a new WhatsApp chat with +91 99718 61492 in the WhatsApp app on mobile, or WhatsApp Web / Desktop on a laptop.
+
+## 3D background
+The 3D library is self-hosted at `assets/three.min.js` (no outside CDN), loaded after the page appears.
+If a device can't run 3D (WebGL off), a soft animated orb is shown instead.
